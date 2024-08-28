@@ -108,7 +108,8 @@ func (c *Chain) WaitForProposalStatus(ctx context.Context, proposalID string, st
 	if err != nil {
 		return err
 	}
-	maxHeight := chainHeight + UpgradeDelta
+	// At 4s per block, 250 blocks is about 20 minutes.
+	maxHeight := chainHeight + 250
 	_, err = cosmos.PollForProposalStatusV1(ctx, c.CosmosChain, chainHeight, maxHeight, uint64(propID), status)
 	return err
 }

@@ -438,25 +438,25 @@ func (p *Chain) SubmitConsumerAdditionProposal(ctx context.Context, chainID stri
 		defer close(errCh)
 		if err := p.WaitForProposalStatus(ctx, propTx.ProposalID, govv1.StatusDepositPeriod); err != nil {
 			errCh <- err
-			return
+			panic(err)
 		}
 		propWaiter.waitForDepositAllowed()
 
 		if _, err := p.GetNode().ExecTx(ctx, interchaintest.FaucetAccountKeyName, "gov", "deposit", propTx.ProposalID, prop.Deposit); err != nil {
 			errCh <- err
-			return
+			panic(err)
 		}
 
 		if err := p.WaitForProposalStatus(ctx, propTx.ProposalID, govv1.StatusVotingPeriod); err != nil {
 			errCh <- err
-			return
+			panic(err)
 		}
 		propWaiter.startVotingPeriod()
 		propWaiter.waitForVoteAllowed()
 
 		if err := p.PassProposal(ctx, propTx.ProposalID); err != nil {
 			errCh <- err
-			return
+			panic(err)
 		}
 		propWaiter.pass()
 	}()

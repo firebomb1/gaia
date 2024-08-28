@@ -292,4 +292,4 @@ require (
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
-replace github.com/strangelove-ventures/interchaintest/v8 => github.com/hyphacoop/interchaintest/v8 v8.2.1-0.20240827183230-b4c212b9721e
+replace github.com/strangelove-ventures/interchaintest/v8 => github.com/hyphacoop/interchaintest/v8 v8.2.1-0.20240828194359-d54b58b07d5a
